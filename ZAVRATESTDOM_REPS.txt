@@ -1,4 +1,3 @@
-START:ZAVRATESTDOM_REPS AUTHOR:ECC0458
 *&---------------------------------------------------------------------*
 *& Report  ZAVRATESTDOM
 *&
@@ -402,4 +401,3 @@ ENDFORM.                    " F_CREATE_XML
 * Title  : Include for global definitions, selection screen*
 * Where called from: Report Z_CA_REP_000002                *
 ************************************************************
-FINISH:ZAVRATESTDOM                                                                                                  REPS
