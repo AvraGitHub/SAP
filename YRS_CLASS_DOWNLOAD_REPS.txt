@@ -1,4 +1,3 @@
-START:YRS_CLASS_DOWNLOAD_REPS AUTHOR:ECC0458
 *&---------------------------------------------------------------------*
 *& Report  YRS_CLASS_DOWNLOAD
 *&
@@ -383,4 +382,3 @@ END-OF-SELECTION.
   localfile = full_path.
 
   g_xml->export_to_file( filename = localfile ).
-FINISH:YRS_CLASS_DOWNLOAD                                                                                            REPS
