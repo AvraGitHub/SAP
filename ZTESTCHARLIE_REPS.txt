@@ -1,4 +1,3 @@
-START:ZTESTCHARLIE_REPS AUTHOR:ECC0458
 *&---------------------------------------------------------------------*
 *& Report  ZTESTCHARLIE
 *&
@@ -11,4 +10,3 @@ REPORT  ZTESTCHARLIE.
 write: 'hello world'.
 write: 'goodbye'.
 write: 'this is the big change for today'.
-FINISH:ZTESTCHARLIE                                                                                                  REPS
