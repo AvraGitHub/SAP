@@ -1,4 +1,2 @@
-START TABLE:ZAQSEGMENT  AUTHOR:ECC0458
 FIELDNAME:NAME                            DATA ELEMENT:                                DATA TYPE:CHAR  DOMAIN:
 FIELDNAME:DATE                            DATA ELEMENT:                                DATA TYPE:CHAR  DOMAIN:
-FINISH TABLE:ZAQSEGMENT
