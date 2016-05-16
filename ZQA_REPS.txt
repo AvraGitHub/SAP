@@ -1,4 +1,3 @@
-START:ZQA_REPS AUTHOR:ECC0458
 *&----------------------------------------------------------------------*
 *& Report  ZQA
 *&
@@ -30,4 +29,3 @@ IF SY-SUBRC = 0.
 read table v_st index 1.  " just to make sure to read not zero entries from debuging
 write:/ v_st-clustd.
 endif.
-FINISH:ZQA                                                                                                           REPS
