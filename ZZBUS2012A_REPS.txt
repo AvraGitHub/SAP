@@ -1,4 +1,3 @@
-START:ZZBUS2012A_REPS AUTHOR:ECC0458
 *****           Implementation of object type ZZBUS2012A           *****
 INCLUDE <OBJECT>.
 BEGIN_DATA OBJECT. " Do not change.. DATA is generated
@@ -18,4 +17,3 @@ BEGIN_METHOD ZQATEST CHANGING CONTAINER.
 "test
 "test
 END_METHOD.
-FINISH:ZZBUS2012A                                                                                                    REPS
