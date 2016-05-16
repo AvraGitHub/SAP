@@ -1,4 +1,3 @@
-START:Z_AQ_CHANGE_LOG_FUNC AUTHOR:ECC0458
 FUNCTION Z_AQ_CHANGE_LOG.
 *"----------------------------------------------------------------------
 *"*"Local Interface:
@@ -946,4 +945,3 @@ FUNCTION Z_AQ_CHANGE_LOG.
 
 
 ENDFUNCTION.
-FINISH:Z_AQ_CHANGE_LOG                                                                                               FUNC
