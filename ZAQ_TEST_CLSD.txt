@@ -1,4 +1,3 @@
-START:ZAQ_TEST_CLSD AUTHOR:ECC0458
 class-pool .
 *"* class pool for class ZAQ_TEST
 
@@ -24,4 +23,3 @@ class ZAQ_TEST implementation.
   include methods.
 endclass. "ZAQ_TEST implementation
 
-FINISH:ZAQ_TEST                                                                                                      CLSD
