@@ -2,6 +2,7 @@ class ZAQ_TEST definition
   public
   final
   create public .
+  dummy line
 
 public section.
 
