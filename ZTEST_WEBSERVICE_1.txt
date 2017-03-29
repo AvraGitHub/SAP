@@ -1,0 +1,13 @@
+FUNCTION ZTEST_WEBSERVICE_1.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(P_IN1) TYPE  NAME1
+*"  EXPORTING
+*"     VALUE(P_OUT1) TYPE  NAME1
+*"     VALUE(P_TABLE) TYPE  HRPAD_T005_TAB
+*"----------------------------------------------------------------------
+
+SELECT * FROM t005 into table p_table UP TO 10 ROWS.
+p_out1 = p_in1.
+ENDFUNCTION.
