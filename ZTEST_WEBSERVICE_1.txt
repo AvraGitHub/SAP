@@ -10,4 +10,5 @@ FUNCTION ZTEST_WEBSERVICE_1.
 
 SELECT * FROM t005 into table p_table UP TO 10 ROWS.
 p_out1 = p_in1.
+write: 'this is an additional line'.
 ENDFUNCTION.
