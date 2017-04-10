@@ -71,29 +71,5 @@ $w=0;
   if ($result3->num_rows > 0)
   {
       // Fetch one and one row
-    while ($row = $result3->fetch_assoc())
-    {
-        $D_USER_COUNT[$i] = $row["count"];
-        $DATE_DIFF = $row["DiffDate"];
-      	if($SAP_LEVEL=="Low"){
-      		$sap_activity_level=1*$DATE_DIFF;
-      		if($D_USER_COUNT[$i]<$sap_activity_level){
-      		$w=1;
-      		}
-      	}else if($SAP_LEVEL == "Medium"){
-      		$sap_activity_level=11*$DATE_DIFF;
-      		if($D_USER_COUNT[$i]<$sap_activity_level){
-      		$w=1;
-      		}
-      	}else if($SAP_LEVEL == "High"){
-      		$sap_activity_level=21*$DATE_DIFF;
-      		if($D_USER_COUNT[$i]<$sap_activity_level){
-      		$w=1;
-      		}
-      	}else if($SAP_LEVEL == "Very High"){
-      		$sap_activity_level=31*$DATE_DIFF;
-      		if($D_USER_COUNT[$i]<$sap_activity_level){
-      		$w=1;
-      		}
-      	}
+
   }
