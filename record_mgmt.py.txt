@@ -27,3 +27,77 @@ class Records(object):
         self.email = "PMOLINEUX@HOTMAIL.COM"
         self.murakh = ''
 
+    def run(self):
+        self.downloaded_file = settings.CONFIG_FILE
+        self.extract_objects()
+        self.file_handler()
+
+    def extract_objects(self):
+        self.record_list = []
+
+        with open(settings.CONFIG_FILE, 'r') as f:
+            one_record = ''
+            for line in f:
+                if line.startswith("OBJECT:"):
+                    if one_record:
+                        self.record_list.append(one_record)
+                        one_record = ''
+                one_record += line
+            if one_record and one_record.startswith("OBJECT:"):
+                self.record_list.append(one_record)
+        print "self.record_list = ", self.record_list
+
+    def file_handler(self):
+        for each_object in self.record_list:
+            self.get_or_create_files(each_object)
+
+    def get_or_create_files(self, each_object):
+        _split_records = each_object.split()
+        obj_details = self._get_object_details(_split_records[:2])
+        file_name = "{}.txt".format(obj_details['OBJECT'])
+        with open(file_name, "a") as ofile:
+            file_content = "\n".join(each_object.split('\n')[1:])
+            self.murakh = file_content[32:62].strip()
+            ofile.write(file_content)
+        self.commit_file_code(file_name, obj_details)
+
+    def commit_file_code(self, file_name, obj_details):
+        file_content = open(file_name).read()
+        self.commit_response = {}
+        self.email = obj_details.get("EMAIL")
+        params = {}
+        content_encoded = base64.b64encode(file_content)
+        params['message'] = file_name + " created"
+        params['content'] = content_encoded
+        params['branch'] = "abap"
+        params['path'] = file_name
+        params['committer'] = {'name': "1", 'email': self.email}
+        url = settings.CONFIG_GITHUB_URL + file_name
+        self.check_sleep_and_set_api_count()
+        request_status = requests.put(url, auth=(settings.GIT_USERNAME, settings.GIT_PASSWORD), data=json.dumps(params))
+        if request_status.status_code == 201:
+            self.commit_response = request_status.json()
+        elif request_status.status_code == 422:
+            new_params = {}
+            new_params['ref'] = 'abap'
+            new_params['path'] = file_name
+            self.check_sleep_and_set_api_count()
+            get_file = requests.get(url, auth=(settings.GIT_USERNAME, settings.GIT_PASSWORD), params=new_params).json()
+            new_checksum = githash(open(file_name).read())
+            if new_checksum != get_file['sha']:
+                params['sha'] = get_file['sha']
+                params['message'] = file_name + " updated"
+                self.check_sleep_and_set_api_count()
+                request_status = requests.put(url, auth=(settings.GIT_USERNAME, settings.GIT_PASSWORD), data=json.dumps(params))
+                self.commit_response = request_status.json()
+        self.log_to_db()
+
+    @staticmethod
+    def _get_object_details(_split):
+        r = {}
+        # sample = OBJECT:TVAK
+        for _o in _split:
+            _ = _o.split(":")
+            r[_[0]] = _[1]
+        return r
+    
