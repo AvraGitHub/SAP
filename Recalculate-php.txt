@@ -1,0 +1,44 @@
+<?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type');
+@ob_start();
+@session_start();
+@error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED ^ E_STRICT);
+ini_set('display_errors', '1');
+$Detected_Hours = $_REQUEST['DETECTED_HOURS'];
+$DEFECTS= $_REQUEST['DEFECTS'];
+$STR_DATE = $_REQUEST['STR_DATE'] ;
+$END_DATE = $_REQUEST['END_DATE'] ;
+$SAP_LEVEL = $_REQUEST['SAP_LEVEL'];
+$UC_DATE = array();
+$D_USER_ID = array();
+$D_USER_COUNT = array();
+$UC_ACTION = array();
+$UC_REACTION_TIME = array();
+$UC_INCRESE = 0;
+$UC_TIME_DELTAS = array();
+$UC_ATT_WORKINGS = array();
+$UC_USER_ID = array();
+ $USER_ID= array();
+ $k=0;
+ $sap_activity_level=0;
+if(!empty($STR_DATE) && !empty($END_DATE))
+{
+  $conn = getConnection();
+   // Set timezone
+      date_default_timezone_set('UTC');
+      $i= 0;
+$Detected_Hours = $Detected_Hours*3600;
+$s=0;
+$sqlU = "Select USER_ID as user from USERS";
+$resultU = $conn->query($sqlU);
+ if ($resultU->num_rows > 0)
+  {
+    // Fetch one and one row
+    while ($row = $resultU->fetch_assoc())
+    {
+        $s=$s+ 1;
+        $USER_ID[$s] = $row["user"];
+    }
+  }
+foreach ($USER_ID as &$value) {
