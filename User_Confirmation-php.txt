@@ -32,3 +32,31 @@ if (!empty($UC_USER_ID) && !empty($UC_TIME_DELTA) && !empty($UC_ATT_WORKING) && 
     else
     {
         jsonResponce(array('status' => 0, 'msg' => "Record not saved!"));
+    }
+}
+else
+{
+  jsonResponce(array('status' => 0, 'msg' => "Error in call api or some paramitter missing"));
+}
+function jsonResponce($array = array())
+{
+  echo json_encode($array);
+  exit;
+}
+function getConnection()
+{
+  $servername = "localhost:3306";
+  $username = "root";
+  $password = "root";
+  $dbname = "AvraQuality";
+   /*$servername = "localhost";
+   $username = "dev_avra";
+   $password = "green123$";
+   $dbname = "AvraQuality";*/
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error)
+  {
+    jsonResponce(array('status' => 0, 'msg' => "Connection failed: " . $conn->connect_error));
+  }
+  return $conn;
+}
