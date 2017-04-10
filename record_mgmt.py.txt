@@ -100,4 +100,50 @@ class Records(object):
             _ = _o.split(":")
             r[_[0]] = _[1]
         return r
-    
+
+    def log_to_db(self):
+        if not self.commit_response:
+            return None
+
+        file_name = self.commit_response['commit']['message']
+        #if file_name.endswith('created'):
+        head_sha = self.commit_response['commit']['sha']
+        if self.commit_response['commit']['parents'] == []:
+            base_sha = head_sha
+            print base_sha, "base ----> first file commit_id"
+        else:
+            base_commit = self.commit_response['commit']['parents'][0]
+            base_sha = base_commit['sha']
+            print base_sha, "base ----> commit_id of previous file"
+
+        print head_sha, "head ----> current file commit_id"
+        #else:
+            #res_url = '{}commits?path={}'.format(settings.CONFIG_GITHUB_URL.replace("contents/", ""), file_name.split(" ")[0])
+            #file_history = requests.get(res_url).json()
+            #print file_history, "file_history"
+            #head_sha = file_history[0]['sha']
+            #print head_sha, "head ----> updated file commit_id"
+            #if len(file_history) > 1:
+                #base_sha = file_history[1]['sha']
+                #print base_sha, "base ----> created file commit_id"
+            #else:
+                #base_sha = head_sha
+
+        reponame = self.commit_response['commit']['html_url'].split("/")[-3]
+        author_name = self.commit_response['commit']['author']['name']
+        url = settings.GET_DELTA_API + '?USER_EMAIL={}&SAP_OBJECT={}&BASE={}&HEAD={}&REPO_NAME={}&USER_AUTHOR={}'.format(self.email,
+            self.murakh,
+            base_sha,head_sha,
+            str(reponame),author_name)
+        response = requests.get(url)
+
+    def check_sleep_and_set_api_count(self):
+        if self.github_rate_limit_count > 28:
+            self.github_rate_limit_count = 0
+            time.sleep(30)
+        self.github_rate_limit_count += 1
+
+if __name__ == '__main__':
+    r = Records()
+    r.run()
+
